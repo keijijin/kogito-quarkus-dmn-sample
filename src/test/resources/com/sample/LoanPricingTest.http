@@ -1,0 +1,34 @@
+POST http://localhost:8080/LoanPricing
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Amount": 25000,
+  "Rate": 0.15,
+  "Term": 24,
+  "Product Type": "Standard"
+}
+
+###
+POST http://localhost:8080/LoanPricing
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Amount": 25000,
+  "Rate": 0.15,
+  "Term": 24,
+  "Product Type": "Standard Loan"
+}
+
+###
+POST http://localhost:8080/LoanPricing
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Amount": 25000,
+  "Rate": 0.15,
+  "Term": 24,
+  "Product Type": "Substandard Loan"
+}

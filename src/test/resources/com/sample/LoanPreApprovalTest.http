@@ -1,0 +1,15 @@
+POST http://localhost:8080/LoanPreApproval
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Application": {
+    "amount": 25000,
+    "term": 24
+  },
+  "Customer": {
+    "fullName": "Keiji Jin",
+    "incomeAnnual": 40000,
+    "age": 56
+  }
+}

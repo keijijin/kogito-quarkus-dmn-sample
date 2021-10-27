@@ -1,0 +1,203 @@
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_317B7A61-0BD0-4F83-AAD0-37CA8D45F88A" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_02ABCE20-7720-402F-9895-74DD1408F22A" name="test_diagram" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_317B7A61-0BD0-4F83-AAD0-37CA8D45F88A">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_148DD2DD-32B9-4915-AF22-5AC5BFCF62C6" name="Customer" isCollection="false">
+    <dmn:itemComponent id="_B29D8812-86E3-43A2-85F7-86E0FBB6E1CE" name="UUID" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_880FCF99-7C78-4116-8ADD-F228B28FBB10" name="name" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_84CAE7C1-C703-467A-BE05-76424DA3D242" name="incomeYearly" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_6CE9B0A3-6EF2-4882-9798-F009D5A4BDB8" name="tResult" isCollection="false">
+    <dmn:itemComponent id="_75E4CC8D-0789-486B-BA77-9499DC038F9A" name="amount" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_E5BF8A6D-02E6-4008-9D6D-F341FAC91FBB" name="reasons" isCollection="true">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:inputData id="_61FA60D5-5221-403D-9149-058F86E26FC9" name="Travel time">
+    <dmn:extensionElements/>
+    <dmn:variable id="_A18F34DC-11F6-4FBD-AAC2-DD8702D6690E" name="Travel time" typeRef="number"/>
+  </dmn:inputData>
+  <dmn:inputData id="_5F1AC999-4BAC-4133-84B1-CDB2EEE31751" name="Overtime">
+    <dmn:extensionElements/>
+    <dmn:variable id="_BA7BCC50-2B8C-4FA3-8EE6-95EAACD73CAB" name="Overtime" typeRef="number"/>
+  </dmn:inputData>
+  <dmn:decision id="_F7DAD15C-7FE0-42C7-B0DD-FE56C6BD0989" name="Extra PTO Entitlement">
+    <dmn:extensionElements/>
+    <dmn:variable id="_12238075-77C5-4B39-8791-5176BE1D0BA9" name="Extra PTO Entitlement" typeRef="tResult"/>
+    <dmn:informationRequirement id="_7F6C2543-1596-4937-8516-4F9F0689FAE8">
+      <dmn:requiredInput href="#_61FA60D5-5221-403D-9149-058F86E26FC9"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_FA51BEA7-D922-4ABE-AA17-0BDA3E3CF3BC">
+      <dmn:requiredInput href="#_5F1AC999-4BAC-4133-84B1-CDB2EEE31751"/>
+    </dmn:informationRequirement>
+    <dmn:context id="_973904F0-3FD4-42C4-9443-DE43D06B2479">
+      <dmn:contextEntry>
+        <dmn:variable id="_26318F9F-A7FC-4267-B123-29D9AAD532F4" name="Travel time PTO" typeRef="tResult"/>
+        <dmn:decisionTable id="_D756A38F-0E1B-45C7-866B-418947ECB682" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+          <dmn:input id="_181194B5-1EC8-4497-AA89-058DE5229D93">
+            <dmn:inputExpression id="_B591D0D4-DC94-41D8-8067-F6C10B940FAF" typeRef="number">
+              <dmn:text>Travel time</dmn:text>
+            </dmn:inputExpression>
+          </dmn:input>
+          <dmn:output id="_3BED0DE5-C717-41C1-80A1-14953E7410BB" name="amount" typeRef="number"/>
+          <dmn:output id="_8D73BA5C-EE42-4928-943F-912AE9B1BC6B" name="reasons" typeRef="string"/>
+          <dmn:annotation name="annotation-1"/>
+          <dmn:rule id="_39A0CA59-D6E7-437A-B0C1-EFBB3757C35F">
+            <dmn:inputEntry id="_D82A0209-1FF7-4AE9-A4D2-57E6EFDFFE4C">
+              <dmn:text>&gt; 16</dmn:text>
+            </dmn:inputEntry>
+            <dmn:outputEntry id="_BDAB79D1-AC60-487B-8474-AA0625E4406E">
+              <dmn:text>Travel time * 0.4</dmn:text>
+            </dmn:outputEntry>
+            <dmn:outputEntry id="_C07B3F8C-0510-499E-9B1A-BF08F847A73E">
+              <dmn:text>"Travel time constant 0.4"</dmn:text>
+            </dmn:outputEntry>
+            <dmn:annotationEntry>
+              <dmn:text/>
+            </dmn:annotationEntry>
+          </dmn:rule>
+          <dmn:rule id="_E43AADFF-3718-43A5-B43F-CDAD6DDA45A6">
+            <dmn:inputEntry id="_400C97AB-01D5-4352-9D41-C3C18E08969D">
+              <dmn:text>&lt;= 16</dmn:text>
+            </dmn:inputEntry>
+            <dmn:outputEntry id="_47500698-045C-45A5-AD45-237129EDB7DB">
+              <dmn:text>Travel time * 0.2</dmn:text>
+            </dmn:outputEntry>
+            <dmn:outputEntry id="_6F778BAF-B480-425F-A4FB-CBA036EF803C">
+              <dmn:text>"Travel time constant 0.2"</dmn:text>
+            </dmn:outputEntry>
+            <dmn:annotationEntry>
+              <dmn:text/>
+            </dmn:annotationEntry>
+          </dmn:rule>
+        </dmn:decisionTable>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_D6B2B855-D92B-4B1E-A121-F8FAA6CEDE70" name="Overtime PTO" typeRef="tResult"/>
+        <dmn:decisionTable id="_D30BAC94-9326-4B7C-8009-593D52D16C2C" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+          <dmn:input id="_F6BF478F-152E-4823-BC0F-DDB1057CCAAE">
+            <dmn:inputExpression id="_5060E8A7-5553-40DF-8287-F869887B5270" typeRef="number">
+              <dmn:text>Overtime</dmn:text>
+            </dmn:inputExpression>
+          </dmn:input>
+          <dmn:output id="_C140BA86-3D6C-4236-B5AD-36F20FF259F8" name="amount" typeRef="number"/>
+          <dmn:output id="_E5CF8D7F-2E2F-4DF7-BBAC-77CCD69ECF0D" name="reasons" typeRef="string"/>
+          <dmn:annotation name="annotation-1"/>
+          <dmn:rule id="_215CACDF-63F8-4687-9742-2D99B78D473C">
+            <dmn:inputEntry id="_A8EF5896-FE3C-4824-A114-ADC48A40D30C">
+              <dmn:text>&gt; 16</dmn:text>
+            </dmn:inputEntry>
+            <dmn:outputEntry id="_8E5A400E-05C8-4124-981F-E7C5CBF81356">
+              <dmn:text>Overtime * 0.5</dmn:text>
+            </dmn:outputEntry>
+            <dmn:outputEntry id="_E5466F83-7097-4C4F-89BA-2718D138E786">
+              <dmn:text>"Overtime constant 0.5"</dmn:text>
+            </dmn:outputEntry>
+            <dmn:annotationEntry>
+              <dmn:text/>
+            </dmn:annotationEntry>
+          </dmn:rule>
+          <dmn:rule id="_2F091030-57D7-4C39-86EE-23599AF3257F">
+            <dmn:inputEntry id="_93FDD0C1-24B6-4DA5-8C98-6135A9219383">
+              <dmn:text>&lt;= 16</dmn:text>
+            </dmn:inputEntry>
+            <dmn:outputEntry id="_E879D7E8-65F9-4BDC-BC40-65F3B3A0C628">
+              <dmn:text>Overtime * 0.3</dmn:text>
+            </dmn:outputEntry>
+            <dmn:outputEntry id="_7F7C50C0-4967-4801-80CE-9A4BFBA71E62">
+              <dmn:text>"Overtime constant = 0.3"</dmn:text>
+            </dmn:outputEntry>
+            <dmn:annotationEntry>
+              <dmn:text/>
+            </dmn:annotationEntry>
+          </dmn:rule>
+        </dmn:decisionTable>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_9615937B-FA9D-40CE-B80C-CA9CEF09C169" name="Reasons" typeRef="string"/>
+        <dmn:literalExpression id="_648BD9D6-CE91-4796-96A2-3AAEB12BCA50">
+          <dmn:text>union(Travel time PTO.reasons, Overtime PTO.reasons)</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:literalExpression id="_49D6A1B1-D3B4-4228-B803-0218DD392DDD">
+          <dmn:text>{ "amount" : Travel time PTO.amount + Overtime PTO.amount, "reasons": Reasons }</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_4A0E5E55-4C10-4127-930A-8339C00475C4" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_973904F0-3FD4-42C4-9443-DE43D06B2479">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>1043</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_D756A38F-0E1B-45C7-866B-418947ECB682">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>164</kie:width>
+            <kie:width>324</kie:width>
+            <kie:width>385</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_D30BAC94-9326-4B7C-8009-593D52D16C2C">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>169</kie:width>
+            <kie:width>304</kie:width>
+            <kie:width>400</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_648BD9D6-CE91-4796-96A2-3AAEB12BCA50">
+            <kie:width>1043</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_49D6A1B1-D3B4-4228-B803-0218DD392DDD">
+            <kie:width>1043</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_61FA60D5-5221-403D-9149-058F86E26FC9" dmnElementRef="_61FA60D5-5221-403D-9149-058F86E26FC9" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="151" y="314" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_5F1AC999-4BAC-4133-84B1-CDB2EEE31751" dmnElementRef="_5F1AC999-4BAC-4133-84B1-CDB2EEE31751" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="270" y="314" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_F7DAD15C-7FE0-42C7-B0DD-FE56C6BD0989" dmnElementRef="_F7DAD15C-7FE0-42C7-B0DD-FE56C6BD0989" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="211" y="192" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-drg-_7F6C2543-1596-4937-8516-4F9F0689FAE8" dmnElementRef="_7F6C2543-1596-4937-8516-4F9F0689FAE8">
+        <di:waypoint x="201" y="339"/>
+        <di:waypoint x="261" y="217"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_FA51BEA7-D922-4ABE-AA17-0BDA3E3CF3BC" dmnElementRef="_FA51BEA7-D922-4ABE-AA17-0BDA3E3CF3BC">
+        <di:waypoint x="320" y="339"/>
+        <di:waypoint x="261" y="217"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
