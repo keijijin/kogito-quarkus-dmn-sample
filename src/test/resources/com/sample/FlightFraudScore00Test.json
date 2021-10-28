@@ -1,0 +1,22 @@
+{
+    "Account": {
+      "customerid": "1234",
+      "flightHistory": [
+        {
+          "id": "007",
+          "flightDate": "2010-10-27T08:50:50.135Z",
+          "isLastMinute": false
+        }
+      ],
+      "recentlyAquiredLP": 0
+    },
+    "Payment": {
+      "paidInLP": 0,
+      "changed": 0
+    },
+    "Flight": {
+      "id": "007",
+      "flightDate": "2021-11-05T08:50:50.135Z",
+      "isLastMinute": false
+    }
+  }
