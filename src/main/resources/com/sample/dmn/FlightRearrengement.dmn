@@ -1,0 +1,527 @@
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_DDDA654A-8F4E-4964-A266-A5762DA76E29" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_02463F7E-6B23-48C3-9230-5719ECA3C86A" name="FlightRearrengement" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_DDDA654A-8F4E-4964-A266-A5762DA76E29">
+  <dmn:extensionElements/>
+  <dmn:itemDefinition id="_039BA0A6-36FC-4B27-9953-A538A961F6E8" name="tFlight" isCollection="false">
+    <dmn:itemComponent id="_8DE572AE-AC34-45DD-80CB-058440047E12" name="Flight Number" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_9A4FBB09-EE2D-4E8C-83E5-0CC061E7C0EA" name="From" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_FC04C252-C9C9-432B-A6D8-3DB8C879DFC0" name="To" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_62C84F27-65B8-4EB4-94E7-923DDE4286F1" name="Departure" isCollection="false">
+      <dmn:typeRef>date and time</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_2267971F-1A84-46E7-A00E-4D85113D8D86" name="Arrival" isCollection="false">
+      <dmn:typeRef>date and time</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_808C5B81-F369-4C67-B982-FA53A67CB166" name="Capacity" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_52584923-5FB0-4137-88C4-53BFC3A76AB6" name="Status" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_51A5CC22-8631-4A4F-A279-8CC8B4F35320" name="tFlightTable" isCollection="true">
+    <dmn:typeRef>tFlight</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_2A4E24EE-F453-4E00-B28B-2C45BCC83C75" name="tPassenger" isCollection="false">
+    <dmn:itemComponent id="_EA99F056-3E35-4DBA-B84C-6B6469EA4790" name="Name" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_483C11B7-0D44-47E3-846F-A4BC5B1D8155" name="Status" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_A17A2C65-8AC8-4316-B9E5-A7B42E99941A" name="Miles" isCollection="false">
+      <dmn:typeRef>number</dmn:typeRef>
+    </dmn:itemComponent>
+    <dmn:itemComponent id="_FFF5C1FC-231D-44F6-AFB4-9BFD34B39CA1" name="Flight Number" isCollection="false">
+      <dmn:typeRef>string</dmn:typeRef>
+    </dmn:itemComponent>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_555C4112-E88B-422D-8174-6D03CF5E7D2D" name="tPassengerTable" isCollection="true">
+    <dmn:typeRef>tPassenger</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:itemDefinition id="_CB7C75B3-0F92-48BE-BC08-7C45CF74DEF9" name="tFlightNumberList" isCollection="true">
+    <dmn:typeRef>string</dmn:typeRef>
+  </dmn:itemDefinition>
+  <dmn:inputData id="_7F9F2E31-629B-43A3-9495-D668CD62E3F8" name="Flight List">
+    <dmn:extensionElements/>
+    <dmn:variable id="_BC213379-41DA-4D87-A607-E82EDD8EBD02" name="Flight List" typeRef="tFlightTable"/>
+  </dmn:inputData>
+  <dmn:inputData id="_BD3F8013-5CDA-4D00-90EF-1FAEEA262A1C" name="Passenger List">
+    <dmn:extensionElements/>
+    <dmn:variable id="_39EE0999-33A5-4F2E-98BB-AC9E75E7C0E2" name="Passenger List" typeRef="tPassengerTable"/>
+  </dmn:inputData>
+  <dmn:decision id="_F1B3C3ED-4923-4758-9CAC-3266FBE6D08D" name="Prioritized Waiting List">
+    <dmn:extensionElements/>
+    <dmn:variable id="_3CC0CD46-A758-4EF4-83F7-C3C0D3FFB322" name="Prioritized Waiting List" typeRef="tPassengerTable"/>
+    <dmn:informationRequirement id="_E5773895-6BE3-4EC2-ABA6-FC1B3ECDF070">
+      <dmn:requiredInput href="#_7F9F2E31-629B-43A3-9495-D668CD62E3F8"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_6ED72303-A8AB-410A-9507-A5815020B66B">
+      <dmn:requiredInput href="#_BD3F8013-5CDA-4D00-90EF-1FAEEA262A1C"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement id="_DAE43AF6-CD9E-4F9A-A5E0-0BC4085690C4">
+      <dmn:requiredKnowledge href="#_DF372858-7690-41D5-88BE-66DB9E2A1371"/>
+    </dmn:knowledgeRequirement>
+    <dmn:context id="_2C3ADB3E-F96F-47B1-9BFC-22B61952BF30">
+      <dmn:contextEntry>
+        <dmn:variable id="_C1BAC68C-0E69-4BD9-93FC-2225E6A6DD85" name="Cancelled Flights" typeRef="tFlightNumberList"/>
+        <dmn:literalExpression id="_19469566-F264-44D2-A855-FB658DC22BE1">
+          <dmn:text>Flight List[ Status = "cancelled" ].Flight Number</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:variable id="_DC08476A-3ECE-4F48-BA53-7A472C86BF9D" name="Waiting List" typeRef="tPassengerTable"/>
+        <dmn:literalExpression id="_25099099-FC36-4B39-8F85-AC304B4CFF57">
+          <dmn:text>Passenger List[ list contains( Cancelled Flights, Flight Number) ]</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+      <dmn:contextEntry>
+        <dmn:literalExpression id="_04386235-8392-4270-B0C4-9DFFE3222B98">
+          <dmn:text>sort( Waiting List, Passenger Priority )</dmn:text>
+        </dmn:literalExpression>
+      </dmn:contextEntry>
+    </dmn:context>
+  </dmn:decision>
+  <dmn:decision id="_3284ED6E-32F6-40B9-B133-9BCD65551A59" name="Rebooked Passengers">
+    <dmn:extensionElements/>
+    <dmn:variable id="_66C3C919-08C1-424B-845A-7ABE7045F4A5" name="Rebooked Passengers" typeRef="tPassengerTable"/>
+    <dmn:informationRequirement id="_E719C9BF-FDD5-48B5-BD1C-587B12D0479B">
+      <dmn:requiredDecision href="#_F1B3C3ED-4923-4758-9CAC-3266FBE6D08D"/>
+    </dmn:informationRequirement>
+    <dmn:informationRequirement id="_883FD33F-E58C-40A7-B114-401EBEE80807">
+      <dmn:requiredInput href="#_7F9F2E31-629B-43A3-9495-D668CD62E3F8"/>
+    </dmn:informationRequirement>
+    <dmn:knowledgeRequirement id="_3284FBF4-F95E-49FA-9BA4-11D63D78C137">
+      <dmn:requiredKnowledge href="#_6E0410E1-74DC-48AC-A003-E392552E47CD"/>
+    </dmn:knowledgeRequirement>
+    <dmn:invocation id="_323409F0-28F5-489D-B113-3412F190CA26">
+      <dmn:literalExpression id="_1A000138-7E0A-44F6-B4C7-1A9DA9EFF1CA">
+        <dmn:text>Reassign Next Passenger</dmn:text>
+      </dmn:literalExpression>
+      <dmn:binding>
+        <dmn:parameter id="_666BF521-96AF-457E-BC2E-82EE60195457" name="Waiting List"/>
+        <dmn:literalExpression id="_0D82B359-179B-4B7D-B16A-CFB9A852FB6B">
+          <dmn:text>Prioritized Waiting List</dmn:text>
+        </dmn:literalExpression>
+      </dmn:binding>
+      <dmn:binding>
+        <dmn:parameter id="_5CCF75C3-0E5A-443E-A6DF-9CF00275A803" name="Reassigned Passengers List"/>
+        <dmn:literalExpression id="_A8CE42A2-0079-4FA8-BCF1-0F30002DC8AF">
+          <dmn:text>[]</dmn:text>
+        </dmn:literalExpression>
+      </dmn:binding>
+      <dmn:binding>
+        <dmn:parameter id="_C14946E4-8F43-4BB3-A4DD-4528A8B0D9FC" name="Flights"/>
+        <dmn:literalExpression id="_F778A563-C756-420E-AA1C-B5E4BD043A61">
+          <dmn:text>Flight List</dmn:text>
+        </dmn:literalExpression>
+      </dmn:binding>
+    </dmn:invocation>
+  </dmn:decision>
+  <dmn:businessKnowledgeModel id="_DF372858-7690-41D5-88BE-66DB9E2A1371" name="Passenger Priority">
+    <dmn:extensionElements/>
+    <dmn:variable id="_E862C53D-2CE2-4B33-AC86-96B14F443C9B" name="Passenger Priority" typeRef="boolean"/>
+    <dmn:encapsulatedLogic id="_DACB6833-6370-4A1F-B9DD-5F6738CEBB8C" kind="FEEL">
+      <dmn:formalParameter id="_38687639-8153-40C5-B0A4-C13CCF7FE278" name="Passenger1" typeRef="tPassenger"/>
+      <dmn:formalParameter id="_EFAF78DF-268E-471B-A809-8A093CF4EBB8" name="Passenger2" typeRef="tPassenger"/>
+      <dmn:decisionTable id="_AF5ABCBA-D0F4-4352-AEEF-8F6C62592580" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+        <dmn:input id="_2A6EF545-C528-46C0-A0DA-1BFF8961D5BD">
+          <dmn:inputExpression id="_B90954CB-03F8-4D51-89C2-73A62CF13814" typeRef="string">
+            <dmn:text>Passenger1.Status</dmn:text>
+          </dmn:inputExpression>
+        </dmn:input>
+        <dmn:input id="_6F07EA39-6A7C-46FD-AC46-8CF2AD5BF4CD">
+          <dmn:inputExpression id="_753D3956-2335-46C6-8524-44CB7782B5BF" typeRef="string">
+            <dmn:text>Passenger2.Status</dmn:text>
+          </dmn:inputExpression>
+        </dmn:input>
+        <dmn:input id="_7AE0573B-0271-4A39-A186-6CA55E2E7DA2">
+          <dmn:inputExpression id="_C2E0F083-6BDF-4D43-960E-A8229B634A29" typeRef="number">
+            <dmn:text>Passenger1.Miles</dmn:text>
+          </dmn:inputExpression>
+        </dmn:input>
+        <dmn:output id="_1078C2CF-7DC6-465B-9661-10CF46ACA2ED"/>
+        <dmn:annotation name="annotation-1"/>
+        <dmn:rule id="_184FF8B3-D293-46CF-8D4C-BC9E030B2A01">
+          <dmn:inputEntry id="_E4F77A87-FF16-4E9B-BE9C-A4495060E23A">
+            <dmn:text>"Gold"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_25DBB72F-E263-48B6-8B7B-B33E1B80FA7F">
+            <dmn:text>"Gold"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_A92D427F-765E-4CCE-A5CF-81D176ACFEBF">
+            <dmn:text>&gt;= Passenger2.Miles</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_CC873B4A-BF48-4BDC-876C-50D90E12D3A1">
+            <dmn:text>true</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_59BBD0A2-9DD8-4244-8E15-BE01A92E4A2C">
+          <dmn:inputEntry id="_B98B2607-79B5-43F1-B302-BE2447FD63F5">
+            <dmn:text>"Gold"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_F68655F4-E60E-4112-820B-A9F8BE276D54">
+            <dmn:text>"Silver", "Bronze"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_10DA3793-CD2B-425C-AD8F-09B9E56F243D">
+            <dmn:text>-</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_9B537130-6E49-4B69-941C-432932180024">
+            <dmn:text>true</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_53252F83-2D1E-488A-916A-B5AEB893D596">
+          <dmn:inputEntry id="_853BF412-B95E-4402-A587-5FA44F65E233">
+            <dmn:text>"Silver"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_D84C4AA0-EAAA-4BE0-A5DD-3F48644A1595">
+            <dmn:text>"Silver"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_CC2518C8-B6E2-4851-BDD5-532B6EC6ED64">
+            <dmn:text>&gt;= Passenger2.Miles</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_4E35E7DC-C196-44D7-AC9E-77E59A54636F">
+            <dmn:text>true</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_7ECD7536-CAFC-4DD6-843A-CD0FF3658D74">
+          <dmn:inputEntry id="_5EAE5F91-DA09-46BF-9C33-FA0FAAAF12C3">
+            <dmn:text>"Silver"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_9FE2B212-F9AD-478A-A6EB-E207361D7A05">
+            <dmn:text>"Bronze"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_532E653F-6817-48A9-B249-AB57CF502180">
+            <dmn:text>-</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_2CD12755-3911-4FB4-8CBE-2851995AADB1">
+            <dmn:text>true</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+        <dmn:rule id="_5EE5C664-0ECD-428D-8805-29789D41554E">
+          <dmn:inputEntry id="_78F69652-F042-48B7-9F76-9E2AFBC7F549">
+            <dmn:text>"Bronze"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_0FD3A523-2967-4E13-A65A-7DADEABA66E9">
+            <dmn:text>"Bronze"</dmn:text>
+          </dmn:inputEntry>
+          <dmn:inputEntry id="_B21C33A2-8180-44AA-878E-3E3FEA33F18C">
+            <dmn:text>&gt;= Passenger2.Miles</dmn:text>
+          </dmn:inputEntry>
+          <dmn:outputEntry id="_EDFFE371-5E16-4E5A-B649-DF2DB54EDEDF">
+            <dmn:text>true</dmn:text>
+          </dmn:outputEntry>
+          <dmn:annotationEntry>
+            <dmn:text/>
+          </dmn:annotationEntry>
+        </dmn:rule>
+      </dmn:decisionTable>
+    </dmn:encapsulatedLogic>
+  </dmn:businessKnowledgeModel>
+  <dmn:businessKnowledgeModel id="_6E0410E1-74DC-48AC-A003-E392552E47CD" name="Reassign Next Passenger">
+    <dmn:extensionElements/>
+    <dmn:variable id="_6420AEF3-6AFF-4E8B-9590-E67D82AB5B94" name="Reassign Next Passenger" typeRef="tPassengerTable"/>
+    <dmn:encapsulatedLogic id="_8B96DFCC-67BE-4B00-B483-9A1D183F28EA" kind="FEEL">
+      <dmn:formalParameter id="_FEF36BA5-E29A-49C3-9D26-DAE24AEB1CDD" name="Waiting List" typeRef="tPassengerTable"/>
+      <dmn:formalParameter id="_B017C7FB-D190-4F55-8EB5-7F549D779F13" name="Reassigned Passengers List" typeRef="tPassengerTable"/>
+      <dmn:formalParameter id="_149D318C-E168-4280-BE8B-34DE15C91CF4" name="Flights" typeRef="tFlightNumberList"/>
+      <dmn:context id="_C6CC8151-29BB-4AD7-BA08-29935C8D6687">
+        <dmn:contextEntry>
+          <dmn:variable id="_79182809-F89C-4E6F-A67A-1DB42CB9B9D4" name="Next Passenger" typeRef="tPassenger"/>
+          <dmn:literalExpression id="_11370437-BA37-4561-A88C-94DD4022C70E">
+            <dmn:text>Waiting List[1]</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_90256947-CFD7-456B-ACA7-D54FAF1BD71D" name="Original Flight" typeRef="tFlight"/>
+          <dmn:literalExpression id="_AC295E36-F04D-4844-9833-6FB88F4DF2C8">
+            <dmn:text>Flights[ Flight Number = Next Passenger.Flight Number][1]</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_5E3CCA82-90B4-422B-B12D-C92EFB6A4DDD" name="Best Alternate Flight" typeRef="tFlight"/>
+          <dmn:literalExpression id="_FA5C1459-1DE2-4462-8604-EFA0F3DD1A46">
+            <dmn:text>Flights[ From = Original Flight.From and
+           To = Original Flight.To and
+           Departure &gt; Original Flight.Departure and
+           Status = "scheduled" and
+           Flight Capacity( item, Reassigned Passengers List) ][1]</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_CDDEC693-59F8-4102-8F63-F0C16FDD8D99" name="Reassigned Passenger" typeRef="tPassenger"/>
+          <dmn:context id="_5544ECF1-6246-4BDB-B87C-B8F957AE1DD7">
+            <dmn:contextEntry>
+              <dmn:variable id="_29B03CBB-E946-4C28-8B57-1EF11634920F" name="Name" typeRef="string"/>
+              <dmn:literalExpression id="_9AA48BCF-F6E2-44B7-89C0-37A1D5E333F5">
+                <dmn:text>Next Passenger.Name</dmn:text>
+              </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+              <dmn:variable id="_35A55A1D-333B-432A-B524-48344C310DD5" name="Status" typeRef="string"/>
+              <dmn:literalExpression id="_F4F6E1BB-251B-43A1-8D67-83E25B9D4011">
+                <dmn:text>Next Passenger.Status</dmn:text>
+              </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+              <dmn:variable id="_B0CD1057-AB87-42FA-AE4C-B83131352E41" name="Miles" typeRef="number"/>
+              <dmn:literalExpression id="_01CD5855-381B-46DD-ADFC-71A8EC567480">
+                <dmn:text>Next Passenger.Miles</dmn:text>
+              </dmn:literalExpression>
+            </dmn:contextEntry>
+            <dmn:contextEntry>
+              <dmn:variable id="_3DD4151D-F4B1-443F-9283-586DD9750049" name="Flight Number" typeRef="string"/>
+              <dmn:literalExpression id="_C60CE3F5-2C47-4008-9ACC-A111E8199ECB">
+                <dmn:text>Best Alternate Flight.Flight Number</dmn:text>
+              </dmn:literalExpression>
+            </dmn:contextEntry>
+          </dmn:context>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_12CC6CE5-4B9C-45E9-AA2A-DFB77BC4AED7" name="Remaining Waiting List" typeRef="tPassengerTable"/>
+          <dmn:literalExpression id="_8D0A97DB-FAE4-483B-AEAB-74E487C11D73">
+            <dmn:text>remove( Waiting List, 1 )</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:variable id="_4E22DAFC-FCBB-4184-BB90-F5C86C4D7919" name="Updated Reassigned Passengers List" typeRef="tPassengerTable"/>
+          <dmn:literalExpression id="_F16DC6C1-A5AC-4B56-971A-17B7DF22003B">
+            <dmn:text>append( Reassigned Passengers List, Reassigned Passenger )</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+        <dmn:contextEntry>
+          <dmn:literalExpression id="_D509AC11-5759-449C-9E95-8E98FE6C10C3">
+            <dmn:text>if count( Remaining Waiting List ) &gt; 0
+  then
+    Reassign Next Passenger( Remaining Waiting List,
+                               Updated Reassigned Passengers List,
+                               Flights )
+  else
+    Updated Reassigned Passengers List</dmn:text>
+          </dmn:literalExpression>
+        </dmn:contextEntry>
+      </dmn:context>
+    </dmn:encapsulatedLogic>
+    <dmn:knowledgeRequirement id="_3F06AB35-A112-4D72-80B0-C9986C480D04">
+      <dmn:requiredKnowledge href="#_FFB4F8A3-337B-44FD-B064-97CA7A03EBA0"/>
+    </dmn:knowledgeRequirement>
+  </dmn:businessKnowledgeModel>
+  <dmn:businessKnowledgeModel id="_FFB4F8A3-337B-44FD-B064-97CA7A03EBA0" name="has capacity">
+    <dmn:extensionElements/>
+    <dmn:variable id="_FC5096FC-2709-41D7-B838-560A87FFE7F2" name="has capacity" typeRef="boolean"/>
+    <dmn:encapsulatedLogic id="_56A9B3FB-28DC-4D10-B825-3F7065F9D88B" kind="FEEL">
+      <dmn:formalParameter id="_71013AB0-4E12-441A-B6FA-C670D0B51C80" name="flight" typeRef="tFlight"/>
+      <dmn:formalParameter id="_BD33ED8B-97A8-404F-889D-777109D3FA02" name="rebooked list" typeRef="tPassengerTable"/>
+      <dmn:literalExpression id="_09AC26E4-575C-47B3-8FF4-4142B077CDBA">
+        <dmn:text>flight.Capacity &gt; count( rebooked list[ Flight Number = flight.Flight Number ])</dmn:text>
+      </dmn:literalExpression>
+    </dmn:encapsulatedLogic>
+  </dmn:businessKnowledgeModel>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_2475FFC4-C017-4666-B49B-4888E5E5FD57" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_2C3ADB3E-F96F-47B1-9BFC-22B61952BF30">
+            <kie:width>50</kie:width>
+            <kie:width>166</kie:width>
+            <kie:width>575</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_19469566-F264-44D2-A855-FB658DC22BE1">
+            <kie:width>575</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_25099099-FC36-4B39-8F85-AC304B4CFF57">
+            <kie:width>575</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_04386235-8392-4270-B0C4-9DFFE3222B98">
+            <kie:width>575</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_323409F0-28F5-489D-B113-3412F190CA26">
+            <kie:width>50</kie:width>
+            <kie:width>217</kie:width>
+            <kie:width>444</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_1A000138-7E0A-44F6-B4C7-1A9DA9EFF1CA"/>
+          <kie:ComponentWidths dmnElementRef="_0D82B359-179B-4B7D-B16A-CFB9A852FB6B">
+            <kie:width>444</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_A8CE42A2-0079-4FA8-BCF1-0F30002DC8AF">
+            <kie:width>444</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_F778A563-C756-420E-AA1C-B5E4BD043A61">
+            <kie:width>444</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_AF5ABCBA-D0F4-4352-AEEF-8F6C62592580">
+            <kie:width>50</kie:width>
+            <kie:width>177</kie:width>
+            <kie:width>180</kie:width>
+            <kie:width>186</kie:width>
+            <kie:width>163</kie:width>
+            <kie:width>144</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_DACB6833-6370-4A1F-B9DD-5F6738CEBB8C">
+            <kie:width>50</kie:width>
+            <kie:width>920</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_C6CC8151-29BB-4AD7-BA08-29935C8D6687">
+            <kie:width>50</kie:width>
+            <kie:width>259</kie:width>
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_11370437-BA37-4561-A88C-94DD4022C70E">
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_AC295E36-F04D-4844-9833-6FB88F4DF2C8">
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_FA5C1459-1DE2-4462-8604-EFA0F3DD1A46">
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_5544ECF1-6246-4BDB-B87C-B8F957AE1DD7">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>396</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_9AA48BCF-F6E2-44B7-89C0-37A1D5E333F5">
+            <kie:width>396</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_F4F6E1BB-251B-43A1-8D67-83E25B9D4011">
+            <kie:width>396</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_01CD5855-381B-46DD-ADFC-71A8EC567480">
+            <kie:width>396</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_C60CE3F5-2C47-4008-9ACC-A111E8199ECB">
+            <kie:width>396</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_8D0A97DB-FAE4-483B-AEAB-74E487C11D73">
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_F16DC6C1-A5AC-4B56-971A-17B7DF22003B">
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_D509AC11-5759-449C-9E95-8E98FE6C10C3">
+            <kie:width>566</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_8B96DFCC-67BE-4B00-B483-9A1D183F28EA">
+            <kie:width>50</kie:width>
+            <kie:width>895</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_09AC26E4-575C-47B3-8FF4-4142B077CDBA">
+            <kie:width>667</kie:width>
+          </kie:ComponentWidths>
+          <kie:ComponentWidths dmnElementRef="_56A9B3FB-28DC-4D10-B825-3F7065F9D88B">
+            <kie:width>50</kie:width>
+            <kie:width>667</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_7F9F2E31-629B-43A3-9495-D668CD62E3F8" dmnElementRef="_7F9F2E31-629B-43A3-9495-D668CD62E3F8" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="56" y="365" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_BD3F8013-5CDA-4D00-90EF-1FAEEA262A1C" dmnElementRef="_BD3F8013-5CDA-4D00-90EF-1FAEEA262A1C" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="383" y="365" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_F1B3C3ED-4923-4758-9CAC-3266FBE6D08D" dmnElementRef="_F1B3C3ED-4923-4758-9CAC-3266FBE6D08D" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="219" y="232" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_3284ED6E-32F6-40B9-B133-9BCD65551A59" dmnElementRef="_3284ED6E-32F6-40B9-B133-9BCD65551A59" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="219" y="92" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_DF372858-7690-41D5-88BE-66DB9E2A1371" dmnElementRef="_DF372858-7690-41D5-88BE-66DB9E2A1371" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="219.29906542056074" y="365" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_6E0410E1-74DC-48AC-A003-E392552E47CD" dmnElementRef="_6E0410E1-74DC-48AC-A003-E392552E47CD" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="397" y="231.34210526315792" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_FFB4F8A3-337B-44FD-B064-97CA7A03EBA0" dmnElementRef="_FFB4F8A3-337B-44FD-B064-97CA7A03EBA0" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="548" y="365" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-drg-_E5773895-6BE3-4EC2-ABA6-FC1B3ECDF070" dmnElementRef="_E5773895-6BE3-4EC2-ABA6-FC1B3ECDF070">
+        <di:waypoint x="106" y="390"/>
+        <di:waypoint x="269" y="257"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_6ED72303-A8AB-410A-9507-A5815020B66B" dmnElementRef="_6ED72303-A8AB-410A-9507-A5815020B66B">
+        <di:waypoint x="433" y="390"/>
+        <di:waypoint x="269" y="257"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_DAE43AF6-CD9E-4F9A-A5E0-0BC4085690C4" dmnElementRef="_DAE43AF6-CD9E-4F9A-A5E0-0BC4085690C4">
+        <di:waypoint x="269.29906542056074" y="390"/>
+        <di:waypoint x="269" y="257"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_E719C9BF-FDD5-48B5-BD1C-587B12D0479B-AUTO-TARGET" dmnElementRef="_E719C9BF-FDD5-48B5-BD1C-587B12D0479B">
+        <di:waypoint x="269" y="257"/>
+        <di:waypoint x="269" y="142"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_883FD33F-E58C-40A7-B114-401EBEE80807" dmnElementRef="_883FD33F-E58C-40A7-B114-401EBEE80807">
+        <di:waypoint x="106" y="390"/>
+        <di:waypoint x="269" y="117"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_3284FBF4-F95E-49FA-9BA4-11D63D78C137" dmnElementRef="_3284FBF4-F95E-49FA-9BA4-11D63D78C137">
+        <di:waypoint x="447" y="256.3421052631579"/>
+        <di:waypoint x="269" y="117"/>
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_3F06AB35-A112-4D72-80B0-C9986C480D04" dmnElementRef="_3F06AB35-A112-4D72-80B0-C9986C480D04">
+        <di:waypoint x="598" y="390"/>
+        <di:waypoint x="447" y="256.3421052631579"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
